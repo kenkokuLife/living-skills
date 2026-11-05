@@ -1,13 +1,13 @@
 {
   "name": "living-skills",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": "https://github.com/kenkokuLife/living-skills",
   "requires": {
     "living_bootstrap": [1],
     "record_schema": [1],
     "sync_protocol": [1],
     "local_layout": [1],
-    "knowledge_contract": [1]
+    "knowledge_contract": [2]
   },
   "install_targets": {
     "claude-code": ".claude/skills",

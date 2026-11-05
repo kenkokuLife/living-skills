@@ -10,7 +10,7 @@ Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入
 
 ## 版本与兼容性
 
-当前版本 **0.2.0**（见 [`bundle.json`](bundle.json)），兼容：
+当前版本 **0.2.1**（见 [`bundle.json`](bundle.json)），兼容：
 
 | Living 接口 | 版本 |
 | --- | --- |
@@ -18,7 +18,7 @@ Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入
 | 工程记录 Contract（`record.schema_version`） | 1 |
 | 同步协议（`protocol_version`） | 1 |
 | `.living/` 本地布局 | 1 |
-| 知识 Contract（`.living/knowledge/`、Construction Run） | 1 |
+| 知识 Contract（`.living/knowledge/`、Construction Run、角色与能力边界） | 2 |
 
 权威 Schema 在 Living 本身（MCP `project_get_record_contract`），本仓库不维护另一份正式 JSON Schema。
 
@@ -50,4 +50,4 @@ node scripts/build-manifest.mjs --check   # 检查 manifest 是否最新、命�
 ## 版本兼容
 
 - Living 只安装它固定的 Commit。已发布的版本（例如 v0.1.0）不会被改写；Living 0.1.1 仍然安装 v0.1.0。
-- 0.2.0 起 `requires` 增加 `knowledge_contract`。Living 0.1.2 之前的安装器不会读取 0.2.0；Living 0.1.2 把缺少 `knowledge_contract` 的旧版本视为不兼容，并在下一次初始化时升级未修改的 Skills。
+- 0.2.0 起 `requires` 增加 `knowledge_contract`；0.2.1 要求知识 Contract 2（Living 0.1.3 起，Living 0.1.3 也接受 Contract 1 的旧知识）。Living 0.1.2 之前的安装器不会读取 0.2.0；Living 0.1.2 把缺少 `knowledge_contract` 的旧版本视为不兼容，并在下一次初始化时升级未修改的 Skills。

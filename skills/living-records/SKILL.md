@@ -3,10 +3,10 @@ name: living-records
 description: 在接入了 Living 的工程项目中，把正常开发过程里值得长期保留的工程认知（测试观察、验证、工程问题、设计决策、研究假设、完成的成果）写成 `.living/records/` 中的结构化记录，并在用户明确要求时增量同步到 Living。适用于「把这次测试记下来」「记录这个问题 / 假设」「把最近的工程记录 MCP 连携到 Living」。不用于每句话都生成记录、不自动同步、不生成完整三层图、不替用户做决定。
 compatibility: 需要已连接的 Living MCP（project_get_context、project_get_record_contract、project_validate_records、project_sync_records）与已初始化的 `.living/`（见 living-init）。
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   bundle: "living-skills"
   living-record-contract: "1"
-  living-knowledge-contract: "1"
+  living-knowledge-contract: "2"
   living-sync-protocol: "1"
 ---
 
@@ -96,5 +96,5 @@ metadata:
 
 ## 兼容策略
 
-- 本 Skill 属于 `living-skills` 0.2.0，适用于记录 `schema_version` 1 与同步协议 1。`project_get_record_contract` 返回 Living 实际支持的版本与 JSON Schema（权威定义，本仓库不复制）。字段只做向后兼容的可选扩展；不兼容变化会提升版本号，并由 Living 固定新的 Skills 版本。
+- 本 Skill 属于 `living-skills` 0.2.1，适用于记录 `schema_version` 1 与同步协议 1。`project_get_record_contract` 返回 Living 实际支持的版本与 JSON Schema（权威定义，本仓库不复制）。字段只做向后兼容的可选扩展；不兼容变化会提升版本号，并由 Living 固定新的 Skills 版本。
 - 同步协议不依赖服务端文件路径：将来 Living 改为远程 HTTP MCP 时，本 Skill 的步骤不变，只是 MCP 配置不同。
