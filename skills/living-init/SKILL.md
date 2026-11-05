@@ -3,10 +3,11 @@ name: living-init
 description: 把当前工程目录接入一个已存在的 Living 项目：通过 Living MCP 的 project_get_bootstrap 取得初始化信息，按固定版本获取并校验 Living Skills，安装到当前项目的 Skill 目录，初始化 `.living/` 并绑定 Living 签发的 Project ID，最后验证结果。也用于检查 Living 环境、重复初始化与升级 Living Skills。适用于「初始化当前项目的 Living」「检查 Living 环境」「升级 Living Skills」。不创建 Living 项目，不自行生成 Project ID，不覆盖已有 Skills 或已绑定其他项目的 `.living/`，不同步记录，不修改 AGENTS.md / CLAUDE.md。
 compatibility: 需要已连接的 Living MCP（提供 project_get_bootstrap，bootstrap_version 1）、可执行 shell 命令的 Agent（Claude Code 或 Codex）、Node.js ≥ 24 与访问 GitHub 的网络。
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   bundle: "living-skills"
   living-bootstrap-version: "1"
   living-record-contract: "1"
+  living-knowledge-contract: "1"
 ---
 
 # Living Init
@@ -73,12 +74,13 @@ metadata:
 ## 输出
 
 - 项目级 Skill 目录中的 `living-init`、`living-knowledge`、`living-records`。每个目录带 `.living-skill.json`，记录来源 Commit 与文件哈希。
-- `.living/`：`project.json`、`records/<type>/`、`evidence/`、`sync/state.json`、`sync/receipts/`、`README.md`。
+- `.living/`：`project.json`、`records/<type>/`、`knowledge/<kind>/` 与 `knowledge/runs/`、`evidence/`、`sync/state.json`、`sync/receipts/`、`README.md`。
 - 给用户的简短报告（见第 6 步）。
 
 ## 兼容策略
 
-- 本 Skill 属于 `living-skills` 0.1.0，要求 Living bootstrap 版本 1、记录 Contract 1、同步协议 1、本地目录布局 1。权威 Schema 在 Living 自身（`project_get_record_contract`），本仓库不维护另一份。
+- 本 Skill 属于 `living-skills` 0.2.0，要求 Living bootstrap 版本 1、记录 Contract 1、知识 Contract 1、同步协议 1、本地目录布局 1。Living 固定了哪个版本由 `project_get_bootstrap` 决定；版本不符时它返回 `incompatible`，安装命令返回 `INCOMPATIBLE_*`，都会安全停止。
+- 从 0.1.0 升级：再次说「初始化当前项目的 Living」或「升级 Living Skills」即可。Living 安装且未修改的 Skills 会原地升级（`upgraded`），`.living/` 与已有记录不变，并补建 `.living/knowledge/` 目录。权威 Schema 在 Living 自身（`project_get_record_contract`），本仓库不维护另一份。
 - 安装位置：
   - Claude Code：`.claude/skills/<name>/`
   - Codex：`.agents/skills/<name>/`

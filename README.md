@@ -5,12 +5,12 @@ Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入
 | Skill | 用途 |
 | --- | --- |
 | [`living-init`](skills/living-init/SKILL.md) | 项目初始化与环境检查：取得 bootstrap 信息，按固定版本安装 Skills，初始化 `.living/` 并绑定 Living 签发的 Project ID |
-| [`living-knowledge`](skills/living-knowledge/SKILL.md) | 有依据的工程知识（需求、策略、数据资源、能力边界）识别与渐进式构建规范 |
+| [`living-knowledge`](skills/living-knowledge/SKILL.md) | 有来源的工程知识构建：调查范围 → 识别需求 / 策略 / 数据资源 / 关系 → 写入 `.living/knowledge/` → 记录 Construction Run → 用户触发时 MCP 连携 |
 | [`living-records`](skills/living-records/SKILL.md) | 日常观察、验证、成果、问题、决策、假设的记录与增量同步规范 |
 
 ## 版本与兼容性
 
-当前版本 **0.1.0**（见 [`bundle.json`](bundle.json)），兼容：
+当前版本 **0.2.0**（见 [`bundle.json`](bundle.json)），兼容：
 
 | Living 接口 | 版本 |
 | --- | --- |
@@ -18,6 +18,7 @@ Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入
 | 工程记录 Contract（`record.schema_version`） | 1 |
 | 同步协议（`protocol_version`） | 1 |
 | `.living/` 本地布局 | 1 |
+| 知识 Contract（`.living/knowledge/`、Construction Run） | 1 |
 
 权威 Schema 在 Living 本身（MCP `project_get_record_contract`），本仓库不维护另一份正式 JSON Schema。
 
@@ -45,3 +46,8 @@ node scripts/build-manifest.mjs --check   # 检查 manifest 是否最新、命�
 - 每个 Skill 的 `metadata.version` 与 `bundle.json` 的 `version` 一致；改动 Skill 内容时提升版本并记录在 [CHANGELOG](CHANGELOG.md)。
 - 不提交个人路径、真实 Project ID、项目数据或凭证（`--check` 会拦截常见情况）。
 - 发布新版本后，由 Living 仓库固定新的 Commit（Living 的 `npm run skills:pin`）。
+
+## 版本兼容
+
+- Living 只安装它固定的 Commit。已发布的版本（例如 v0.1.0）不会被改写；Living 0.1.1 仍然安装 v0.1.0。
+- 0.2.0 起 `requires` 增加 `knowledge_contract`。Living 0.1.2 之前的安装器不会读取 0.2.0；Living 0.1.2 把缺少 `knowledge_contract` 的旧版本视为不兼容，并在下一次初始化时升级未修改的 Skills。

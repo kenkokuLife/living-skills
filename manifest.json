@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "bundle": "living-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": "https://github.com/kenkokuLife/living-skills",
   "requires": {
     "living_bootstrap": [
@@ -15,6 +15,9 @@
     ],
     "local_layout": [
       1
+    ],
+    "knowledge_contract": [
+      1
     ]
   },
   "install_targets": {
@@ -24,37 +27,37 @@
   "skills": [
     {
       "name": "living-init",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "files": [
         {
           "path": "skills/living-init/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "121e9a89612931ac027be5723eb679b931ea3ea37170dfce5f86a5fe88607775",
-          "bytes": 6218
+          "sha256": "76e6128bfd7d017655423281cce231849b2319fc0d840848a11a1d93d09cecc6",
+          "bytes": 6732
         }
       ]
     },
     {
       "name": "living-knowledge",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "files": [
         {
           "path": "skills/living-knowledge/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "306a5a337b0a1c7451e0937fe198e2fae7a90abe6dc0fedd980ab344af49a21c",
-          "bytes": 4651
+          "sha256": "c0eff8ee815e93eb0877d8190b4993776289fd264a13b4a17fa7bb36f2b169ce",
+          "bytes": 10340
         }
       ]
     },
     {
       "name": "living-records",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "files": [
         {
           "path": "skills/living-records/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "8f8dec4713c15646ba9242f1492d568edd60db1a6c5300107c651b66c20298d5",
-          "bytes": 8008
+          "sha256": "16bbf4aab0e2c9d5f3307750636226cfbef470312d69a6ce42c4c58a0862f0f2",
+          "bytes": 8766
         }
       ]
     }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0
+
+- `living-knowledge`：从「规范说明」改为正式的知识构建流程，共 9 步：范围 → Run → 最小资料 → 去重 → 实现 / 候选 / 未知 → 有来源的关系 → 未知项 → 结束 Run → 等待连携。说明 `.living/knowledge/` 目录、ID 前缀、envelope、三种依据类型、跨会话修订和常见错误。模型身份只在用户声明时记录。
+- `living-records`：同步改为一次覆盖记录、知识与 Construction Run；补充记录不改写知识的边界。
+- `living-init`：兼容检查加入知识 Contract 1，并说明从 0.1.0 原地升级的方式。
+- `requires` 增加 `knowledge_contract: [1]`。
+- 验证：`node scripts/build-manifest.mjs --check`；Living 仓库的安装器与同步测试。未验证：真实 Agent 会话中的知识构建、Codex。
+
 ## 0.1.0
 
 - 新增 `living-init`：通过 Living MCP `project_get_bootstrap` 按固定 Commit 获取并校验 Skills，安装到项目级目录（Claude Code `.claude/skills`、Codex `.agents/skills`），初始化 `.living/` 并绑定 Living 签发的 Project ID；重复执行不覆盖已有记录或非 Living 安装的 Skills。
