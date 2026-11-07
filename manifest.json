@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "bundle": "living-skills",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "repository": "https://github.com/kenkokuLife/living-skills",
   "requires": {
     "living_bootstrap": [
@@ -17,7 +17,7 @@
       1
     ],
     "knowledge_contract": [
-      2
+      3
     ]
   },
   "install_targets": {
@@ -27,37 +27,43 @@
   "skills": [
     {
       "name": "living-init",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "files": [
         {
           "path": "skills/living-init/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "80ce5db98ac50a4f3f4d82b50dda7d5225444166aae56e277cc806add270fb7a",
-          "bytes": 6732
+          "sha256": "eb610f9f2b0331555bc93aff9698df52d77d5c316882092beb55dbd0a55a22f5",
+          "bytes": 6761
         }
       ]
     },
     {
       "name": "living-knowledge",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "files": [
         {
           "path": "skills/living-knowledge/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "b602126d4c5df3d85c6cc488cc72815609e7153c0aba7622f6274c578aa81b8c",
-          "bytes": 19684
+          "sha256": "96705a1896a0dd75cf71beb6128970c9a8ec09cd39e379fc215ce880bcf3e965",
+          "bytes": 10229
+        },
+        {
+          "path": "skills/living-knowledge/references/contract3.md",
+          "install_as": "references/contract3.md",
+          "sha256": "ab61430204334f10d2491301bf61db6043432f877c7b5034c9c19e7139e730d3",
+          "bytes": 2774
         }
       ]
     },
     {
       "name": "living-records",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "files": [
         {
           "path": "skills/living-records/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "73b0631e5606b9f0fc818c4daf3e1ea14833b733864433a07d5b3fa01790346d",
-          "bytes": 8766
+          "sha256": "957be59dfb8199f31213c622cb19556db220658cd0d11de54f57485e5d6af815",
+          "bytes": 9253
         }
       ]
     }

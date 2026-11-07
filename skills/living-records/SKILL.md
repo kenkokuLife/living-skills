@@ -1,16 +1,17 @@
 ---
 name: living-records
 description: 在接入了 Living 的工程项目中，把正常开发过程里值得长期保留的工程认知（测试观察、验证、工程问题、设计决策、研究假设、完成的成果）写成 `.living/records/` 中的结构化记录，并在用户明确要求时增量同步到 Living。适用于「把这次测试记下来」「记录这个问题 / 假设」「把最近的工程记录 MCP 连携到 Living」。不用于每句话都生成记录、不自动同步、不生成完整三层图、不替用户做决定。
-compatibility: 需要已连接的 Living MCP（project_get_context、project_get_record_contract、project_validate_records、project_sync_records）与已初始化的 `.living/`（见 living-init）。
 metadata:
-  version: "0.2.1"
+  version: "0.3.0"
   bundle: "living-skills"
   living-record-contract: "1"
-  living-knowledge-contract: "2"
+  living-knowledge-contract: "3"
   living-sync-protocol: "1"
 ---
 
 # Living Records
+
+兼容要求：需要已连接的 Living MCP（project_get_context、project_get_record_contract、project_validate_records、project_sync_records）与已初始化的 `.living/`（见 living-init）。
 
 ## 用途与边界
 
@@ -69,8 +70,8 @@ metadata:
 用户说「把最近的工程记录 MCP 连携到 Living」或「把最近的项目工程知识 MCP 连携到 Living」时，两者走同一个流程：一次授权覆盖所有待同步的记录、知识对象（`.living/knowledge/`）和构建 Run，不需要逐项确认。
 
 1. `living-records status` —— 依据 ID + revision + 内容哈希与上次回执比对（不看文件修改时间），分别列出记录、知识与 Run 的 new / changed / needs_revision_bump / invalid。先修正本地错误。
-2. `living-records bundle --out /tmp/living-payload.json` —— 只打包新增与修改的条目（records、knowledge、construction_runs），附件内联，生成确定的 `idempotency_key`。
-3. （可选）`project_validate_records` 预检，参数与 payload 相同。
+2. 含 Knowledge 新增/修订时先按 living-knowledge 完整读取并保留 baseline，使用 `bundle --base-file <baseline.json> --knowledge-contract 3 --out <payload.json>`，冲突时重新读取并协调。仅记录使用 `living-records bundle --out /tmp/living-payload.json` —— 只打包新增与修改的条目（records、knowledge、construction_runs），附件内联，生成确定的 `idempotency_key`。
+3. `project_validate_records` 预检：只传 project_id、records、knowledge、construction_runs、attachments，不传同步专用 protocol_version、idempotency_key 或 user_requested。记录单独同步可按需要预检；含知识修订时必须先按 living-knowledge 的完整读取与校验流程。
 4. `project_sync_records`，参数取自 payload（`records`、`knowledge`、`construction_runs`、`attachments`、`idempotency_key`），并传 `user_requested: true`。
 5. 把返回的回执保存为文件，运行 `living-records apply-receipt --file <回执>`：
    - `committed` / `no_changes`：更新 `.living/sync/state.json`；
@@ -96,5 +97,5 @@ metadata:
 
 ## 兼容策略
 
-- 本 Skill 属于 `living-skills` 0.2.1，适用于记录 `schema_version` 1 与同步协议 1。`project_get_record_contract` 返回 Living 实际支持的版本与 JSON Schema（权威定义，本仓库不复制）。字段只做向后兼容的可选扩展；不兼容变化会提升版本号，并由 Living 固定新的 Skills 版本。
+- 本 Skill 属于 `living-skills` 0.3.0 本地候选（未发布），适用于记录 `schema_version` 1 与同步协议 1。`project_get_record_contract` 返回 Living 实际支持的版本与 JSON Schema（权威定义，本仓库不复制）。字段只做向后兼容的可选扩展；不兼容变化会提升版本号，并由 Living 固定新的 Skills 版本。
 - 同步协议不依赖服务端文件路径：将来 Living 改为远程 HTTP MCP 时，本 Skill 的步骤不变，只是 MCP 配置不同。

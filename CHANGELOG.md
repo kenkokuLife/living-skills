@@ -1,3 +1,7 @@
+# 0.3.0 local candidate — 2026-11-07
+
+Unpublished Contract-3 skill candidate: complete reads, stable revisions/CAS, composition, logical needs, conditional flows, scoped evidence and MCP round trips. Public lock remains 0.2.1; no candidate commit or release is claimed.
+
 # Changelog
 
 ## 0.2.1

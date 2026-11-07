@@ -1,3 +1,5 @@
+> Local working-tree candidate 0.3.0 (unpublished). Base commit: `989ebaca5120e9a045257c6530aaeb8ce14cc6fa`. Content identity is `manifest.json` SHA-256 plus file hashes. Do not pin this base commit as if it contained the candidate. Use Living `skills-candidate` in an isolated workspace; published bootstrap continues to use the existing lock.
+
 # living-skills
 
 Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入 Living、识别有依据的工程知识、积累工程记录。
@@ -10,7 +12,9 @@ Living 的 Agent Skills。它们让 Claude Code / Codex 在工程项目中接入
 
 ## 版本与兼容性
 
-当前版本 **0.2.1**（见 [`bundle.json`](bundle.json)），兼容：
+当前候选为 **0.3.0（未发布）**，要求知识 Contract **3**（见 [`bundle.json`](bundle.json) 和 `manifest.json`）；三个 Skill 的版本均为 0.3.0。它仅供开发分支审阅与隔离安装，不更新 Living 正式 Skill lock。
+
+此前已发布版本 **0.2.1** 的兼容接口如下：
 
 | Living 接口 | 版本 |
 | --- | --- |
