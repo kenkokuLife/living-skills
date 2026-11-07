@@ -30,6 +30,7 @@ Living 记录和展示工程认知，不执行处理流程、不批准方案、�
 - **Question Scenario** 是 Requirement 内的具体问题/验收情境（`question_scenarios`），不是另一条需求。区分 proposed、test_definition、typical_path 和 historical_execution；问题文本、期望、实测观察分开。
 - **Open Question** 是尚待回答的工程不确定性（attention），例如端点语义、数据覆盖是否充分。不要把未确认问题写成支持范围或假装已经解决。
 - **需求需要的信息** 写 `data_requirements`：为什么需要、required/conditional/quality、条件和断言；`resource_mappings` 只说明与现有资源对应。`assessment` 分开记录充分性、缺失数据与实现缺口；Unknown 保持 unknown。
+- **资源分类** 使用 `resource_role`。业务数据用 RuntimeKnowledge，Prompt 与运行配置用 RuntimePrompt，测试与评估用 Evaluation，工程资料用 DevelopmentArtifact，依据不足用 Unverified。按来源核对用途，同名和调用位置不足以分类。
 - **实现实际使用的数据** 用 canonical `uses` Alignment。数据被读取不证明它逻辑必需、充分或覆盖完整。`needs` 表达已确认的未满足资源需要；算法缺口不是缺少数据库。不从映射自动建立 uses/needs。
 - **完整方案** 是带 `composition` 的 Strategy，成员继续是独立、可复用的 Strategy。Requirement 仍通过 `realized_by` 指向完整方案，成员只存于 `composition.members`，不为成员资格再造一组关系。不要把完整方案与同名成员重复创建。
 - **逻辑步骤** 写在 `composition.processing`，表达目的、逻辑输入输出和参与的直接成员；不要求一函数一步或一成员一步。中间信息不是新 Data Resource。步骤实际取用物理资源时 `data_uses` 引用参与成员已有的 uses Alignment。
@@ -47,11 +48,27 @@ Envelope `basis`：verified_source 表示作者亲自读了来源，reported 表
 
 保留已有 source_refs、evidence_ids、认识状态与验证范围；新增来源写准确 repo/ref/path/lines/note/checked_at。历史实验只支持其当时的范围，旧候选事实不能因通过 Schema/MCP 就提升为已验证。当前源码、历史运行、推断和待验收场景分开。
 
+Git 引用仅用于该 ref 中真实存在的文件。本地未提交文件与 MCP 历史对象应在来源说明中明确访问范围、原始位置及可用哈希／Run Revision，不伪装成固定 Commit 文件；404 本身不证明历史证据不存在。找不到原文时说明当前不可复核及是否有独立支持。`verified_scope.verified_on` 保留有依据的原始执行／验证日期，method 明说原始方法和本次只读复核日期；`source_refs.checked_at` 是本次检查日。纠正已同步内容需从最新完整读取创建后续修订，不改写历史。
+
 `implementation`（实现）、`current_use`（当前运行）和验证是独立维度。Active 需 current_use_basis。Requirement 的 supported_scope 只说明源码可确认的实现范围；verified_scope 需真正输出/报告。保留 unverified_scope、unsupported_scope、限制及风险。不能标记用户 Accepted，不能用工程记录隐式重写知识。
+
+## 每次 Construction Run 的覆盖检查
+
+结束调查时，将本次草稿与完整读取的既有 Knowledge 合看，按稳定 Requirement ID 核对调查范围内的业务 Task，包括本次未修订的 Task。Constraint 单独核对，适用对象只用有来源的 `applies_to`。对范围外的 Task，只摘要已读知识可确认的状态并标明「范围外／未复核」。
+
+在交付中为每个范围内 Task 列出 ID、实现路径、信息建模与资源映射、相关 Alignment 或来源、尚待核实事项。实现和数据覆盖分别报告，同一需求可同时有实现和映射缺口：
+
+- 有状态为 Implemented 的 `realized_by`，且有结构化 `data_requirements`。列出已映射项与覆盖、充分性仍未知的项。
+- 有已实现的关系，缺少 Contract 3 数据建模。保留原实现关系，指出缺少结构化需求。没有显式 `current_implementation` 时单列当前组合 Unknown。
+- 有逻辑数据要求，部分或全部缺少资源映射。逐项列出缺少映射的局部 ID。资源缺口与实现缺口仍按各自依据记录。
+- 有明确未来计划且尚无可靠实现路径。分别引用计划依据和路径判断。若只有 `NoPath`，报告已记录的路径状态。若只有 `Exploring` 或 `Unknown`，按原状态报告，列明需要调查的事项。
+- 实现、需求范围或映射依据不足时保留 Unknown，说明应核对的具体来源。
+
+`status` 表达支持状态。Contract 3 没有 Requirement 生命周期字段，计划只在有来源时写入调查报告或正式对象允许的来源与断言说明。覆盖检查是 Run 的交付内容，缺口可使用现有 `unresolved` 或有来源的 Open Question 记录。发现缺口可以先报告，新增或修订仍限本次调查与授权范围。
 
 ## Validate → Sync → Receipt → 再读取
 
-本地 `status`/`validate` 检查文件；最终引用、来源与并发检查由 MCP Validate 执行。结束调查运行 `run finish <id>`，核对 created/updated/relations 与未解决项；Run 不是 Knowledge Revision 或 Sync Receipt。
+本地 `status`/`validate` 检查文件；最终引用、来源与并发检查由 MCP Validate 执行。完成覆盖检查后运行 `run finish <id>`，核对 created/updated/relations 与未解决项；Run 不是 Knowledge Revision 或 Sync Receipt。
 
 1. `bundle --base-file <本次读取baseline.json> --knowledge-contract 3 --out <包.json>`。明确理解 Contract 3 才声明能力 3。只提交本次修改项，避免把旧默认字段哈希差异当成改动。每个修订保留原 ID、作者 revision 递增、新 run_id、change_note 和读取时 base_version。
 2. 通过 `project_validate_records` 提交包内 project_id/records/knowledge/construction_runs/attachments；不要把同步专用 idempotency_key/user_requested 塞给 Validate。检查 valid 和每项计划结果及错误。

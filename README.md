@@ -1,4 +1,4 @@
-> Local working-tree candidate 0.3.0 (unpublished). Base commit: `989ebaca5120e9a045257c6530aaeb8ce14cc6fa`. Content identity is `manifest.json` SHA-256 plus file hashes. Do not pin this base commit as if it contained the candidate. Use Living `skills-candidate` in an isolated workspace; published bootstrap continues to use the existing lock.
+> 0.3.0 RC 候选，未发布。Coverage Review 的候选基础 Commit 为 `1693cda22df59be95600623b8f17946005246ded`；当前 RC 内容以开发分支 Commit、manifest SHA-256 及文件哈希为准。没有正式 Release Tag，Living 正式 lock 仍保持原版本。隔离安装使用 `skills-candidate`。
 
 # living-skills
 
@@ -55,3 +55,9 @@ node scripts/build-manifest.mjs --check   # 检查 manifest 是否最新、命�
 
 - Living 只安装它固定的 Commit。已发布的版本（例如 v0.1.0）不会被改写；Living 0.1.1 仍然安装 v0.1.0。
 - 0.2.0 起 `requires` 增加 `knowledge_contract`；0.2.1 要求知识 Contract 2（Living 0.1.3 起，Living 0.1.3 也接受 Contract 1 的旧知识）。Living 0.1.2 之前的安装器不会读取 0.2.0；Living 0.1.2 把缺少 `knowledge_contract` 的旧版本视为不兼容，并在下一次初始化时升级未修改的 Skills。
+
+## 0.3.0 RC Review
+
+本候选加入 Coverage Review：按稳定 Task ID 分开报告实现关系、结构化数据要求、资源映射、Unknown 与有来源的计划；Constraint 仅通过显式 applies_to。区分逻辑信息要求（requires_data 语义）、实际 uses 与明确 needs。历史执行日期、本次来源复核日期和当前未验证能力分别说明。
+
+本轮验证范围与后续发布路径见 [RC-REVIEW.md](RC-REVIEW.md)。未创建 Tag、发布 Skill 或更新 Living 正式 lock。

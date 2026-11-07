@@ -1,6 +1,8 @@
-# 0.3.0 local candidate — 2026-11-07
+# 0.3.0 RC candidate — 2026-11-07
 
-Unpublished Contract-3 skill candidate: complete reads, stable revisions/CAS, composition, logical needs, conditional flows, scoped evidence and MCP round trips. Public lock remains 0.2.1; no candidate commit or release is claimed.
+Unpublished Contract-3 skill candidate: complete reads, stable revisions/CAS, composition, logical needs, conditional flows, scoped evidence and MCP round trips. Public lock remains 0.2.1; this is a reviewable development candidate, without a release tag or publication.
+
+Coverage Review now reports implementation and data modeling separately, retains stable IDs and scoped Unknown/plan states, and keeps Constraints outside the Task inventory. Source guidance distinguishes committed Git files, local files and MCP history; historical execution dates remain separate from the current read-only review date.
 
 # Changelog
 

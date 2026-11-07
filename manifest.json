@@ -44,8 +44,8 @@
         {
           "path": "skills/living-knowledge/SKILL.md",
           "install_as": "SKILL.md",
-          "sha256": "96705a1896a0dd75cf71beb6128970c9a8ec09cd39e379fc215ce880bcf3e965",
-          "bytes": 10229
+          "sha256": "49e4d804b023fcd8ec1832a69a079db3ef2e9d28af643805f4447cc619e88cef",
+          "bytes": 12922
         },
         {
           "path": "skills/living-knowledge/references/contract3.md",
